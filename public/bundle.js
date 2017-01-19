@@ -108,7 +108,7 @@
 	// Load foundation
 	$(document).foundation();
 
-	__webpack_require__(232);
+	__webpack_require__(233);
 
 	ReactDOM.render(React.createElement(TodoApp, null), document.getElementById('app'));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
@@ -25473,6 +25473,7 @@
 
 	var React = __webpack_require__(8);
 	var TodoList = __webpack_require__(230);
+	var AddTodo = __webpack_require__(232);
 
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
@@ -25494,6 +25495,9 @@
 	      }]
 	    };
 	  },
+	  handleAddTodo: function handleAddTodo(text) {
+	    alert('new todo:' + text);
+	  },
 	  render: function render() {
 	    var todos = this.state.todos;
 
@@ -25501,7 +25505,8 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(TodoList, { todos: todos })
+	      React.createElement(TodoList, { todos: todos }),
+	      React.createElement(AddTodo, { onAddTodo: this.handleAddTodo })
 	    );
 	  }
 	});
@@ -25574,13 +25579,55 @@
 /* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var AddTodo = React.createClass({
+	  displayName: 'AddTodo',
+
+	  handleSubmit: function handleSubmit(e) {
+	    e.preventDefault();
+	    var todoText = this.refs.todoText.value;
+
+	    if (todoText.length > 0) {
+	      this.refs.todoText.value = '';
+	      this.props.onAddTodo(todoText);
+	    } else {
+	      this.refs.todoText.focus();
+	    }
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        React.createElement('input', { type: 'text', ref: 'todoText', placeholder: 'What do you need to do' }),
+	        React.createElement(
+	          'button',
+	          { className: 'button expanded' },
+	          'Add Todo'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = AddTodo;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(233);
+	var content = __webpack_require__(234);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(235)(content, {});
+	var update = __webpack_require__(236)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25597,10 +25644,10 @@
 	}
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(234)();
+	exports = module.exports = __webpack_require__(235)();
 	// imports
 
 
@@ -25611,7 +25658,7 @@
 
 
 /***/ },
-/* 234 */
+/* 235 */
 /***/ function(module, exports) {
 
 	/*
@@ -25667,7 +25714,7 @@
 
 
 /***/ },
-/* 235 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
