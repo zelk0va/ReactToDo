@@ -42,15 +42,15 @@ describe('TodoAPI',()=>{
   describe('filterTodos',()=>{
     var todos = [{
       id:1,
-      text: 'Sometext here',
+      text: 'Some text here',
       completed: true
     }, {
       id:2,
-      text: 'Sometext here',
+      text: 'Other text here',
       completed: false
     },{
       id:3,
-      text: 'Sometext here',
+      text: 'Some text here',
       completed: true
     }];
 
@@ -62,6 +62,21 @@ describe('TodoAPI',()=>{
     it('should return non-completed when showcompleted is false', ()=>{
       var filteredTodos = TodoAPI.filterTodos(todos, false, '');
       expect(filteredTodos.length).toBe(1);
+    });
+
+    it('should sort by completed status', ()=>{
+      var filterTodos = TodoAPI.filterTodos(todos,true,'');
+      expect(filterTodos[0].completed).toBe(false);
+    });
+
+    it('it should filter todos by searchText', ()=>{
+      var filteredTodos = TodoAPI.filterTodos(todos, true, 'some');
+      expect(filteredTodos.length).toBe(2);
+    });
+
+    it('should return all todos if searchText is empty', ()=>{
+      var filteredTodos = TodoAPI.filterTodos(todos, true, '');
+      expect(filteredTodos.length).toBe(3);
     });
   });
 });

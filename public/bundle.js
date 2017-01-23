@@ -25722,6 +25722,17 @@
 	    filteredTodos = filteredTodos.filter(function (todo) {
 	      return !todo.completed || showCompleted;
 	    });
+
+	    filteredTodos.sort(function (a, b) {
+	      if (!a.completed && b.completed) {
+	        return -1;
+	      } else if (a.completed && !b.completed) {
+	        return 1;
+	      } else {
+	        return 0;
+	      }
+	    });
+
 	    return filteredTodos;
 	  }
 	};
